@@ -1,0 +1,10 @@
+export { default as AmericanExpresSVG } from './americanExpress.png'
+export { default as DinersSVG } from './diners.png'
+export { default as DiscoverSVG } from './discover.png'
+export { default as jcbSVG } from './jcb.png'
+export { default as MaestroSVG } from './maestro.png'
+export { default as MasterCardSVG } from './masterCard.png'
+export { default as UnionPaySVG } from './unionpay.png'
+export { default as VisaSVG } from './visa.png'
+export { default as EmptySVG } from './empty.png'
+

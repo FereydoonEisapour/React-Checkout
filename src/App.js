@@ -1,52 +1,94 @@
 import React from 'react';
 import './App.css';
-import { cardNumberFormater, cardDateFormater, masker } from './func'
-import AmexSVG from './SVG/AmexSVG';
+import { cardNumberFormater, cardDateFormater, masker, randomCard } from './func'
+import { AmericanExpresSVG, DinersSVG, DiscoverSVG, jcbSVG, MaestroSVG, MasterCardSVG, UnionPaySVG, VisaSVG, EmptySVG } from './Assets'
+
 function App() {
   const [regData, setRegData] = React.useState('')
-
+  const [cardSVG, setCardSVG] = React.useState(EmptySVG)
   const [fliped, setFliped] = React.useState(false)
   const flipCard = () => fliped ? setFliped(false) : setFliped(true)
 
   const [checkoutNumber, setCheckoutNumber] = React.useState(Number ? '1234 5648 9100 1111' : '')
+  const [checkoutName, setCheckoutName] = React.useState(String ? 'Jon Doe' : "")
+  const [checkoutDate, setCheckoutDate] = React.useState(String ? '12/05' : "")
+  const [checkoutExp, setCheckoutExp] = React.useState(String ? '999' : "")
+  const [cardColorLight, setCardColorLight] = React.useState('grey')
+  const [cardColorDark, setCardColorDark] = React.useState('greydark')
+
   const checkoutNumberHandler = (e) => {
     setCheckoutNumber(cardNumberFormater(e.target.value))
     setRegData(masker(e.target.value))
-    setCardColorLight(regData[2])
-    setCardColorDark(regData[2] + 'dark')
+    setCardColorLight(regData[1])
+    setCardColorDark(regData[1] + 'dark')
   }
-  console.log(regData[2])
-  const [checkoutName, setCheckoutName] = React.useState(String ? 'Jon Doe' : "")
+
   const checkoutNameHandler = (e) => {
     setCheckoutName(e.target.value)
   }
-  const [checkoutDate, setCheckoutDate] = React.useState(String ? '12/05' : "")
+
   const checkoutDateHandler = (e) => {
     setCheckoutDate(cardDateFormater(e.target.value))
   }
 
-  const [checkoutExp, setCheckoutExp] = React.useState(String ? '999' : "")
   const checkoutExpHandler = (e) => {
     setCheckoutExp(e.target.value)
   }
-  const [cardColorLight, setCardColorLight] = React.useState('grey')
-  const [cardColorDark, setCardColorDark] = React.useState('greydark')
+
+  // const [inputData, setinputData] = React.useState('')
+  // const randomCardNumber = () => {
+  //   let randomData = randomCard()
+  //   setinputData(randomData)
+  //   setCheckoutNumber(randomData)
+  //   setRegData(masker(randomData))
+  //   setCardColorLight(regData[1])
+  //   setCardColorDark(regData[1] + 'dark')
+  // }
+
+  React.useEffect(() => {
+    switch (regData[0]) {
+      case 'american express':
+        setCardSVG(AmericanExpresSVG)
+        break;
+      case 'visa':
+        setCardSVG(VisaSVG)
+        break;
+      case 'diners':
+        setCardSVG(DinersSVG)
+        break;
+      case 'discover':
+        setCardSVG(DiscoverSVG)
+        break;
+      case ('jcb'):
+        setCardSVG(jcbSVG)
+        break;
+      case 'maestro':
+        setCardSVG(MaestroSVG)
+        break;
+      case 'mastercard':
+        setCardSVG(MasterCardSVG)
+        break;
+      case 'unionpay':
+        setCardSVG(UnionPaySVG)
+        break;
+      default:
+        setCardSVG(EmptySVG)
+        break;
+    }
+    return () => { }
+  }, [regData])
+
 
   return (
     <div className="App">
-
-
       <div className="payment-title">
-
         <h1>Payment Information</h1>
-        <img src={regData[0]} alt="" />
       </div>
       <div className="container ">
         <div className={`creditcard  ${fliped ? 'flipped' : ''}`} onClick={flipCard}>
           <div className="front">
             <div id="ccsingle  ">
-              <img src={regData[0]} alt="" />
-
+              <img src={cardSVG} alt="" id='ccsingle' className='ccsingle' />
             </div>
             <svg version="1.1" id="cardfront" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink"
               x="0px" y="0px" viewBox="0 0 750 471" style={{ "enableBackground": "new 0 0 750 471" }} xmlSpace="preserve"
@@ -63,11 +105,9 @@ function App() {
                     d="M750,431V193.2c-217.6-57.5-556.4-13.5-750,24.9V431c0,22.1,17.9,40,40,40h670C732.1,471,750,453.1,750,431z" />
                 </g>
                 <text transform="matrix(1 0 0 1 60.106 295.0121)" id="svgnumber" className="st2 st3 st4">
-                  {/* 0123 4567 8910 1112 */}
                   {checkoutNumber}
                 </text>
                 <text transform="matrix(1 0 0 1 54.1064 428.1723)" id="svgname" className="st2 st5 st6">
-                  {/* JOHN DOE */}
                   {checkoutName}
                 </text>
                 <text transform="matrix(1 0 0 1 54.1074 389.8793)" className="st7 st5 st8">cardholder name</text>
@@ -76,7 +116,6 @@ function App() {
                 <g>
                   <text transform="matrix(1 0 0 1 574.4219 433.8095)" id="svgexpire" className="st2 st5 st9">
                     {checkoutDate}
-                    {/* 01/23 */}
                   </text>
                   <text transform="matrix(1 0 0 1 479.3848 417.0097)" className="st2 st10 st11">VALID</text>
                   <text transform="matrix(1 0 0 1 479.3848 435.6762)" className="st2 st10 st11">THRU</text>
@@ -144,14 +183,15 @@ function App() {
                 </g>
                 <text transform="matrix(1 0 0 1 621.999 227.2734)" id="svgsecurity" className="st6 st7">
                   {checkoutExp}
-                  {/* 985 */}
                 </text>
                 <g className="st8">
                   <text transform="matrix(1 0 0 1 518.083 280.0879)" className="st9 st6 st10">security code</text>
                 </g>
                 <rect x="58.1" y="378.6" className="st11" width="375.5" height="13.5" />
                 <rect x="58.1" y="405.6" className="st11" width="421.7" height="13.5" />
-                <text transform="matrix(1 0 0 1 59.5073 228.6099)" id="svgnameback" className="st12 st13">John Doe</text>
+                <text transform="matrix(1 0 0 1 59.5073 228.6099)" id="svgnameback" className="st12 st13">
+                  {checkoutName}
+                </text>
               </g>
             </svg>
           </div>
@@ -165,14 +205,18 @@ function App() {
             onClick={() => setFliped(false)} />
         </div>
         <div className="field-container">
+          <label htmlFor="cardnumber">Card Number</label><span id="generatecard"
+          // onClick={randomCardNumber}
+          >generate random</span>
           <label htmlFor="cardnumber">Card Number</label><span id="generatecard"></span>
-          <input id="cardnumber" type="text" pattern="[0-9]*" inputMode="numeric"
+          <input id="cardnumber" type="text" pattern="[0-9]*" inputMode="numeric" maxLength={16}
             onChange={checkoutNumberHandler}
             onClick={() => setFliped(false)}
+          //value={!inputData ? inputData : null}
           />
-          <svg id="ccicon" className="ccicon" width="750" height="471" viewBox="0 0 750 471" version="1.1"
-            xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
-          </svg>
+          {/* Input icon card */}
+          {/* <img src={cardSVG} alt="" id='ccicon' className='ccicon' /> */}
+
         </div>
         <div className="field-container">
           <label htmlFor="expirationdate">Expiration (mm/yy)</label>
