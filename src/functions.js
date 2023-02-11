@@ -12,16 +12,17 @@ function cardDateFormater(value) {
         /^([0]+)\/|[0]+$/g, '0' // 0/ > 0 and 00 > 0
     ).replace(
         /[^\d\/]|^[\/]*$/g, '' // To allow only digits and `/`
+        //  /[^0-9]/g, ''
     ).replace(
         /\/\//g, '/' // Prevent entering more than 1 `/`
     );
 }
 // *  Format Card Number    1234 5678 9101 1111
 function cardNumberFormater(value) {
-    var v = value.replace(/\s+/g, '').replace(/[^0-9]/gi, '')
-    var matches = v.match(/\d{4,16}/g);
-    var match = (matches && matches[0]) || ''
-    var parts = []
+    let v = value.replace(/\s+/g, '').replace(/[^0-9]/gi, '')
+    let matches = v.match(/\d{4,16}/g);
+    let match = (matches && matches[0]) || ''
+    let parts = []
     for (let i = 0, len = match.length; i < len; i += 4) {
         parts.push(match.substring(i, i + 4))
     }

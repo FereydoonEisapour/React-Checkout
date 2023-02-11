@@ -11,8 +11,8 @@ function App() {
 
   const [checkoutNumber, setCheckoutNumber] = React.useState(Number ? '1234 5648 9100 1111' : '')
   const [checkoutName, setCheckoutName] = React.useState(String ? 'Jon Doe' : "")
-  const [checkoutDate, setCheckoutDate] = React.useState(String ? '12/05' : "")
-  const [checkoutExp, setCheckoutExp] = React.useState(String ? '999' : "")
+  const [checkoutExp, setCheckoutExp] = React.useState(String ? '12/05' : "")
+  const [checkoutSecurity, setCheckoutSecurity] = React.useState(String ? '999' : "")
   const [cardColorLight, setCardColorLight] = React.useState('grey')
   const [cardColorDark, setCardColorDark] = React.useState('greydark')
 
@@ -27,12 +27,12 @@ function App() {
     setCheckoutName(e.target.value)
   }
 
-  const checkoutDateHandler = (e) => {
-    setCheckoutDate(cardDateFormater(e.target.value))
+  const checkoutExpHandler = (e) => {
+    setCheckoutExp(cardDateFormater(e.target.value))
   }
 
-  const checkoutExpHandler = (e) => {
-    setCheckoutExp(e.target.value)
+  const checkoutSecurityHandler = (e) => {
+    setCheckoutSecurity((e.target.value).replace(/[^0-9]/g, ''))
   }
 
   // const [inputData, setinputData] = React.useState('')
@@ -115,7 +115,7 @@ function App() {
                 <text transform="matrix(1 0 0 1 65.1054 241.5)" className="st7 st5 st8">card number</text>
                 <g>
                   <text transform="matrix(1 0 0 1 574.4219 433.8095)" id="svgexpire" className="st2 st5 st9">
-                    {checkoutDate}
+                    {checkoutExp}
                   </text>
                   <text transform="matrix(1 0 0 1 479.3848 417.0097)" className="st2 st10 st11">VALID</text>
                   <text transform="matrix(1 0 0 1 479.3848 435.6762)" className="st2 st10 st11">THRU</text>
@@ -182,7 +182,7 @@ function App() {
                     d="M701.1,184.6H618h-8h-10v64.5h10h8h83.1c3.3,0,6-2.7,6-6v-52.5C707.1,187.3,704.4,184.6,701.1,184.6z" />
                 </g>
                 <text transform="matrix(1 0 0 1 621.999 227.2734)" id="svgsecurity" className="st6 st7">
-                  {checkoutExp}
+                  {checkoutSecurity}
                 </text>
                 <g className="st8">
                   <text transform="matrix(1 0 0 1 518.083 280.0879)" className="st9 st6 st10">security code</text>
@@ -205,9 +205,6 @@ function App() {
             onClick={() => setFliped(false)} />
         </div>
         <div className="field-container">
-          <label htmlFor="cardnumber">Card Number</label><span id="generatecard"
-          // onClick={randomCardNumber}
-          >generate random</span>
           <label htmlFor="cardnumber">Card Number</label><span id="generatecard"></span>
           <input id="cardnumber" type="text" pattern="[0-9]*" inputMode="numeric" maxLength={16}
             onChange={checkoutNumberHandler}
@@ -216,18 +213,17 @@ function App() {
           />
           {/* Input icon card */}
           {/* <img src={cardSVG} alt="" id='ccicon' className='ccicon' /> */}
-
         </div>
         <div className="field-container">
           <label htmlFor="expirationdate">Expiration (mm/yy)</label>
           <input id="expirationdate" type="text" pattern="[0-9]*" inputMode="numeric" maxLength={5}
-            onChange={checkoutDateHandler}
+            onChange={checkoutExpHandler}
             onClick={() => setFliped(false)} />
         </div>
         <div className="field-container">
           <label htmlFor="securitycode">Security Code</label>
           <input id="securitycode" type="text" pattern="[0-9]*" inputMode="numeric" maxLength={4}
-            onChange={checkoutExpHandler}
+            onChange={checkoutSecurityHandler}
             onClick={() => setFliped(true)} />
         </div>
       </div>

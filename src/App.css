@@ -125,7 +125,7 @@ input {
   border-radius: 22px;
 }
 
-#generatecard {
+/* #generatecard {
   cursor: pointer;
   float: right;
   font-size: 12px;
@@ -135,7 +135,7 @@ input {
   border-radius: 4px;
   cursor: pointer;
   float: right;
-}
+} */
 
 /* CHANGEABLE CARD ELEMENTS */
 .creditcard .lightcolor,
