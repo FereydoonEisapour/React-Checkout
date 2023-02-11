@@ -1,22 +1,4 @@
-import emptySVG from './Assets/empty.png'
-// function cardDateFormater(value) {
-//     var v = value.replace(/\s+/g, '').replace(/[^0-9]/gi, '')
-//     var matches = v.match(/\d{2,4}/g);
-//     var match = (matches && matches[0]) || ''
-//     var parts = []
-
-//     for (let i = 0, len = match.length; i < len; i += 2) {
-//         parts.push(match.substring(i, i + 2))
-//     }
-
-//     if (parts.length) {
-//         return parts.join('/')
-//     } else {
-//         return value
-//     }
-// }
-
-
+// * Format card Date  12/23 
 function cardDateFormater(value) {
     return value = value.replace(
         /^([1-9]\/|[2-9])$/g, '0$1/' // 3 > 03/
@@ -34,6 +16,7 @@ function cardDateFormater(value) {
         /\/\//g, '/' // Prevent entering more than 1 `/`
     );
 }
+// *  Format Card Number    1234 5678 9101 1111
 function cardNumberFormater(value) {
     var v = value.replace(/\s+/g, '').replace(/[^0-9]/gi, '')
     var matches = v.match(/\d{4,16}/g);
@@ -49,7 +32,7 @@ function cardNumberFormater(value) {
         return value
     }
 }
-
+// * Find card number type 
 function masker(value) {
     let mask = [
         {
@@ -153,8 +136,6 @@ function masker(value) {
             data = ['', 'grey']
             break;
     }
-
-
     return data
 }
 

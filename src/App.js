@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { cardNumberFormater, cardDateFormater, masker, randomCard } from './func'
+import { cardNumberFormater, cardDateFormater, masker, randomCard } from './functions'
 import { AmericanExpresSVG, DinersSVG, DiscoverSVG, jcbSVG, MaestroSVG, MasterCardSVG, UnionPaySVG, VisaSVG, EmptySVG } from './Assets'
 
 function App() {
