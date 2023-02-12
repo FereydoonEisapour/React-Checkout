@@ -4,7 +4,7 @@ import { cardNumberFormater, cardDateFormater, masker, randomCard } from './func
 import { AmericanExpresSVG, DinersSVG, DiscoverSVG, jcbSVG, MaestroSVG, MasterCardSVG, UnionPaySVG, VisaSVG, EmptySVG } from './Assets'
 
 function App() {
-  const [regData, setRegData] = React.useState('')
+  const [cardType, setCardType] = React.useState('')
   const [cardSVG, setCardSVG] = React.useState(EmptySVG)
   const [fliped, setFliped] = React.useState(false)
   const flipCard = () => fliped ? setFliped(false) : setFliped(true)
@@ -18,9 +18,15 @@ function App() {
 
   const checkoutNumberHandler = (e) => {
     setCheckoutNumber(cardNumberFormater(e.target.value))
-    setRegData(masker(e.target.value))
-    setCardColorLight(regData[1])
-    setCardColorDark(regData[1] + 'dark')
+    setCardType(masker(e.target.value))
+    let colors = masker(e.target.value)[1]
+    console.log(colors)
+    setCardColorLight(colors)
+    setCardColorDark(colors + 'dark')
+    if (colors === "") {
+      setCardColorLight('grey')
+      setCardColorDark('greydark')
+    }
   }
 
   const checkoutNameHandler = (e) => {
@@ -40,13 +46,13 @@ function App() {
   //   let randomData = randomCard()
   //   setinputData(randomData)
   //   setCheckoutNumber(randomData)
-  //   setRegData(masker(randomData))
-  //   setCardColorLight(regData[1])
-  //   setCardColorDark(regData[1] + 'dark')
+  //   setcardType(masker(randomData))
+  //   setCardColorLight(cardType[1])
+  //   setCardColorDark(cardType[1] + 'dark')
   // }
 
   React.useEffect(() => {
-    switch (regData[0]) {
+    switch (cardType[0]) {
       case 'american express':
         setCardSVG(AmericanExpresSVG)
         break;
@@ -76,7 +82,7 @@ function App() {
         break;
     }
     return () => { }
-  }, [regData])
+  }, [cardType])
 
 
   return (

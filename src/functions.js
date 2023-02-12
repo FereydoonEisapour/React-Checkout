@@ -35,6 +35,7 @@ function cardNumberFormater(value) {
 }
 // * Find card number type 
 function masker(value) {
+    let data = ''
     let mask = [
         {
             mask: '0000 000000 00000',
@@ -87,11 +88,15 @@ function masker(value) {
         {
             mask: '0000 0000 0000 0000',
             regex: '^62\\d{0,14}',
-            cardtype: 'unionpay'
+            cardtype: 'unionpay',
+            color: 'cyan'
         },
         {
             mask: '0000 0000 0000 0000',
-            cardtype: 'Unknown'
+            regex: '',
+            cardtype: 'Unknown',
+            color: ''
+
         }
     ]
     let regFind = null
@@ -101,43 +106,47 @@ function masker(value) {
             if (value.match(re) != null) {
                 regFind = mask[i]
                 //console.log(regFind.cardtype)
-                return regFind
+               // console.log(regFind)
+                return data = [regFind.cardtype, regFind.color]
+                //  return regFind
             }
         }
     }
     setReg(mask, value)
-
-    let data = ''
-    switch (regFind.cardtype) {
-        case 'american express':
-            data = ['american express', 'green']
-            break;
-        case 'visa':
-            data = ['visa', 'lime']
-            break;
-        case 'diners':
-            data = ['diners', 'orange']
-            break;
-        case 'discover':
-            data = ['discover', 'pruple']
-            break;
-        case ('jcb' || 'jcb15'):
-            data = ['jcb', 'red']
-            break;
-        case 'maestro':
-            data = ['maestro', 'yellow']
-            break;
-        case 'mastercard':
-            data = ['mastercard', 'lightblue']
-            break;
-        case 'unionpay':
-            data = ['unionpay', 'cyan']
-            break;
-        default:
-            data = ['', 'grey']
-            break;
-    }
+    
     return data
+    // let data = ''
+    // switch (regFind.cardtype) {
+    //     case 'american express':
+    //         data = ['american express', 'green']
+    //         break;
+    //     case 'visa':
+    //         data = ['visa', 'lime']
+    //         break;
+    //     case 'diners':
+    //         data = ['diners', 'orange']
+    //         break;
+    //     case 'discover':
+    //         data = ['discover', 'pruple']
+    //         break;
+    //     case ('jcb' || 'jcb15'):
+    //         data = ['jcb', 'red']
+    //         break;
+    //     case 'maestro':
+    //         data = ['maestro', 'yellow']
+    //         break;
+    //     case 'mastercard':
+    //         data = ['mastercard', 'lightblue']
+    //         break;
+    //     case 'unionpay':
+    //         data = ['unionpay', 'cyan']
+    //         break;
+    //     default:
+    //         data = ['', 'grey']
+    //         break;
+    // }
+    // console.log(data)
+    // return data
 }
 
 //Generate random card number from list of known test numbers
