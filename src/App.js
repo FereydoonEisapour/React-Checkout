@@ -1,7 +1,8 @@
 import React from 'react';
 import './App.css';
-import { cardNumberFormater, cardDateFormater, masker, randomCard } from './functions'
+import { cardNumberFormater, cardDateFormater, masker } from './functions'
 import { AmericanExpresSVG, DinersSVG, DiscoverSVG, jcbSVG, MaestroSVG, MasterCardSVG, UnionPaySVG, VisaSVG, EmptySVG } from './Assets'
+import { toast, Toaster } from 'react-hot-toast';
 
 function App() {
   const [cardType, setCardType] = React.useState('')
@@ -16,17 +17,14 @@ function App() {
   const [cardColorLight, setCardColorLight] = React.useState('grey')
   const [cardColorDark, setCardColorDark] = React.useState('greydark')
 
+
   const checkoutNumberHandler = (e) => {
     setCheckoutNumber(cardNumberFormater(e.target.value))
     setCardType(masker(e.target.value))
     let colors = masker(e.target.value)[1]
-    console.log(colors)
     setCardColorLight(colors)
     setCardColorDark(colors + 'dark')
-    if (colors === "") {
-      setCardColorLight('grey')
-      setCardColorDark('greydark')
-    }
+    if (colors === "") { setCardColorLight('grey'); setCardColorDark('greydark') }
   }
 
   const checkoutNameHandler = (e) => {
@@ -40,16 +38,6 @@ function App() {
   const checkoutSecurityHandler = (e) => {
     setCheckoutSecurity((e.target.value).replace(/[^0-9]/g, ''))
   }
-
-  // const [inputData, setinputData] = React.useState('')
-  // const randomCardNumber = () => {
-  //   let randomData = randomCard()
-  //   setinputData(randomData)
-  //   setCheckoutNumber(randomData)
-  //   setcardType(masker(randomData))
-  //   setCardColorLight(cardType[1])
-  //   setCardColorDark(cardType[1] + 'dark')
-  // }
 
   React.useEffect(() => {
     switch (cardType[0]) {
@@ -83,10 +71,15 @@ function App() {
     }
     return () => { }
   }, [cardType])
-
-
+  const payHandler = () => {
+    toast.success('Pay Successfully', {
+      duration: 4000,
+    })
+    document.querySelectorAll('input').forEach(input => { input.value = '' })
+  }
   return (
     <div className="App">
+
       <div className="payment-title">
         <h1>Payment Information</h1>
       </div>
@@ -215,10 +208,7 @@ function App() {
           <input id="cardnumber" type="text" pattern="[0-9]*" inputMode="numeric" maxLength={16}
             onChange={checkoutNumberHandler}
             onClick={() => setFliped(false)}
-          //value={!inputData ? inputData : null}
           />
-          {/* Input icon card */}
-          {/* <img src={cardSVG} alt="" id='ccicon' className='ccicon' /> */}
         </div>
         <div className="field-container">
           <label htmlFor="expirationdate">Expiration (mm/yy)</label>
@@ -230,8 +220,14 @@ function App() {
           <label htmlFor="securitycode">Security Code</label>
           <input id="securitycode" type="text" pattern="[0-9]*" inputMode="numeric" maxLength={4}
             onChange={checkoutSecurityHandler}
-            onClick={() => setFliped(true)} />
+            onClick={() => setFliped(true)}
+            onFocus={() => setFliped(true)}
+          />
         </div>
+      </div>
+      <div className="checkout-button">
+        <Toaster />
+        <button onClick={payHandler} >Pay</button>
       </div>
     </div>
   );

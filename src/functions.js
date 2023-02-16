@@ -105,70 +105,11 @@ function masker(value) {
             let re = new RegExp(mask[i].regex);
             if (value.match(re) != null) {
                 regFind = mask[i]
-                //console.log(regFind.cardtype)
-               // console.log(regFind)
                 return data = [regFind.cardtype, regFind.color]
-                //  return regFind
             }
         }
     }
     setReg(mask, value)
-    
     return data
-    // let data = ''
-    // switch (regFind.cardtype) {
-    //     case 'american express':
-    //         data = ['american express', 'green']
-    //         break;
-    //     case 'visa':
-    //         data = ['visa', 'lime']
-    //         break;
-    //     case 'diners':
-    //         data = ['diners', 'orange']
-    //         break;
-    //     case 'discover':
-    //         data = ['discover', 'pruple']
-    //         break;
-    //     case ('jcb' || 'jcb15'):
-    //         data = ['jcb', 'red']
-    //         break;
-    //     case 'maestro':
-    //         data = ['maestro', 'yellow']
-    //         break;
-    //     case 'mastercard':
-    //         data = ['mastercard', 'lightblue']
-    //         break;
-    //     case 'unionpay':
-    //         data = ['unionpay', 'cyan']
-    //         break;
-    //     default:
-    //         data = ['', 'grey']
-    //         break;
-    // }
-    // console.log(data)
-    // return data
 }
-
-//Generate random card number from list of known test numbers
-function randomCard() {
-    let testCards = [
-        '4000056655665556',
-        '5200828282828210',
-        '3714496353984315',
-        '6011000990139424',
-        '3056930902590422',
-        '3566002020360505',
-        '6200000000000005',
-        '6759649826438453',
-    ];
-    let randomNumber = Math.floor(Math.random() * testCards.length);
-
-    console.log(String(cardNumberFormater(testCards[randomNumber])))
-    return cardNumberFormater(testCards[randomNumber])
-}
-
-
-
-
-
-export { cardNumberFormater, cardDateFormater, masker, randomCard }
+export { cardNumberFormater, cardDateFormater, masker }

@@ -21,7 +21,16 @@
   flex-wrap: wrap;
   font-family: "Raleway";
 }
-
+.checkout-button{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.checkout-button button{
+  padding: 10px 35px;
+  border: none;
+  font-weight: bold;
+}
 .payment-title {
   width: 100%;
   text-align: center;
